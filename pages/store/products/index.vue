@@ -192,7 +192,7 @@ class="relative z-50"
 											as="h3"
 											class="text-base font-semibold text-gray-900"
 										>
-											Deactivate account
+											Delete product
 										</DialogTitle>
 										<div class="mt-2">
 											<p class="text-sm text-gray-500">
