@@ -5,7 +5,8 @@ export const useApiUrls = () => {
 
 	return {
 		poke: {
-			berries: `${pokeApiBaseUrl}/berry`
+			berries: `${pokeApiBaseUrl}/berry`,
+			berry: (id: string) => `${pokeApiBaseUrl}/berry/${id}`
 		},
 		store: {
 			product: (id: string) => `${storeApiBaseUrl}/products/${id}`,

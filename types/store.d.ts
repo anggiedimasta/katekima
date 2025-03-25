@@ -23,7 +23,7 @@ declare global {
 			actions: TableAction[]
 			columns: TableColumn[]
 			params: TableParams
-			rows: Post[]
+			rows: Product[]
 			totalPage: number
 			totalRows: number
 		}
