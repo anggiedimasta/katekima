@@ -18,7 +18,7 @@ const isSidebarOpen = ref(true)
 const isSidebarMobileOpen = ref(false)
 
 function isCurrentRouteActive(current: Route) {
-	return current.href === route.path
+	return current.name === route.meta.moduleName
 }
 
 function changeModule(m: Module) {
@@ -30,9 +30,9 @@ function changeModule(m: Module) {
 <template>
 	<div>
 		<TransitionRoot
-			as="template"
-			:show="isSidebarMobileOpen"
-		>
+as="template"
+:show="isSidebarMobileOpen"
+>
 			<Dialog
 				class="relative z-50 lg:hidden"
 				@close="isSidebarMobileOpen = false"
@@ -80,16 +80,16 @@ function changeModule(m: Module) {
 									>
 										<span class="sr-only">Close sidebar</span>
 										<VueFeather
-											type="x"
-											aria-hidden="true"
-											size="1.25rem"
-										/>
+type="x"
+aria-hidden="true"
+size="1.25rem"
+/>
 									</button>
 								</div>
 							</TransitionChild>
 							<!-- Sidebar component, swap this element with another sidebar if you like -->
 							<div
-								class="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2 ring-1 ring-white/10"
+								class="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2"
 							>
 								<div class="flex gap-2 h-24 shrink-0 items-center">
 									<img
@@ -102,9 +102,9 @@ function changeModule(m: Module) {
 									</span>
 								</div>
 								<Listbox
-									:value="routeStore.activeModuleName"
-									as="div"
-								>
+:value="routeStore.activeModuleName"
+as="div"
+>
 									<div class="relative mt-2">
 										<ListboxButton
 											class="grid w-full cursor-pointer grid-cols-1 rounded-md bg-gray-100 py-1.5 pr-2 pl-3 text-left text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-k-tertiary sm:text-sm/6"
@@ -125,7 +125,7 @@ function changeModule(m: Module) {
 											leave-to-class="opacity-0"
 										>
 											<ListboxOptions
-												class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-gray-100 py-1 text-base ring-1 shadow-lg ring-black/5 focus:outline-hidden sm:text-sm"
+												class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-gray-100 py-1 text-base shadow-lg focus:outline-hidden sm:text-sm"
 											>
 												<ListboxOption
 													v-for="m in routeStore.modules"
@@ -172,14 +172,14 @@ function changeModule(m: Module) {
 								</Listbox>
 								<nav class="flex flex-1 flex-col">
 									<ul
-										role="list"
-										class="flex flex-1 flex-col gap-y-7"
-									>
+role="list"
+class="flex flex-1 flex-col gap-y-7"
+>
 										<li>
 											<ul
-												role="list"
-												class="space-y-1"
-											>
+role="list"
+class="space-y-1"
+>
 												<li
 													v-for="menu in routeStore.activeModuleRoutes"
 													:key="menu.name"
@@ -209,9 +209,9 @@ function changeModule(m: Module) {
 		</TransitionRoot>
 
 		<TransitionRoot
-			as="template"
-			:show="isSidebarOpen"
-		>
+as="template"
+:show="isSidebarOpen"
+>
 			<div
 				class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col"
 			>
@@ -238,9 +238,9 @@ function changeModule(m: Module) {
 							</span>
 						</div>
 						<Listbox
-							:value="routeStore.activeModuleName"
-							as="div"
-						>
+:value="routeStore.activeModuleName"
+as="div"
+>
 							<div class="relative mt-2">
 								<ListboxButton
 									class="flex gap-2 items-center justify-between w-full cursor-pointer grid-cols-1 rounded-md bg-gray-100 py-1.5 pr-2 pl-3 text-left text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-k-tertiary sm:text-sm/6"
@@ -266,7 +266,7 @@ function changeModule(m: Module) {
 									leave-to-class="opacity-0"
 								>
 									<ListboxOptions
-										class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-gray-100 py-1 text-base ring-1 shadow-lg ring-black/5 focus:outline-hidden sm:text-sm"
+										class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-gray-100 py-1 text-base shadow-lg focus:outline-hidden sm:text-sm"
 									>
 										<ListboxOption
 											v-for="m in routeStore.modules"
@@ -318,14 +318,14 @@ function changeModule(m: Module) {
 						</Listbox>
 						<nav class="flex flex-1 flex-col">
 							<ul
-								role="list"
-								class="flex flex-1 flex-col gap-y-7"
-							>
+role="list"
+class="flex flex-1 flex-col gap-y-7"
+>
 								<li>
 									<ul
-										role="list"
-										class="space-y-1"
-									>
+role="list"
+class="space-y-1"
+>
 										<li
 											v-for="menu in routeStore.activeModuleRoutes"
 											:key="menu.name"
@@ -363,13 +363,13 @@ function changeModule(m: Module) {
 			>
 				<span class="sr-only">Open sidebar</span>
 				<VueFeather
-					type="menu"
-					aria-hidden="true"
-					size="1.25rem"
-				/>
+type="menu"
+aria-hidden="true"
+size="1.25rem"
+/>
 			</button>
 			<div class="flex-1 text-lg font-semibold text-gray-700">
-				{{ routeStore.activeRoute.name }}
+				{{ routeStore.activeModuleName }}
 			</div>
 		</div>
 
@@ -385,13 +385,13 @@ function changeModule(m: Module) {
 				>
 					<span class="sr-only">Open sidebar</span>
 					<VueFeather
-						type="menu"
-						aria-hidden="true"
-						size="1.25rem"
-					/>
+type="menu"
+aria-hidden="true"
+size="1.25rem"
+/>
 				</button>
 				<h1 class="text-2xl/6 font-semibold text-gray-700">
-					{{ routeStore.activeRoute.name }}
+					{{ routeStore.activeModuleName }}
 				</h1>
 			</div>
 			<main class="p-4 sm:p-6 lg:p-8">

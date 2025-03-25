@@ -181,6 +181,7 @@ const props = defineProps({
 
 const emits = defineEmits(['update:model-value', 'on-validation-change'])
 const isValid = ref(true)
+let typingTimeout
 
 function updateValue(value, isEnter) {
 	const val = value.target.value
@@ -213,7 +214,10 @@ function updateValue(value, isEnter) {
 		if (isEnter && props.isUpdateOnEnter) {
 			setValue()
 		} else if (!isEnter && !props.isUpdateOnEnter) {
-			setValue()
+			clearTimeout(typingTimeout)
+			typingTimeout = setTimeout(() => {
+				setValue()
+			}, 1000)
 		}
 	}
 }
@@ -262,24 +266,24 @@ const computedPlaceholder = computed(() => {
 
 <template>
 	<div
-		class="k-input"
-		:class="computedClasses"
-	>
+class="k-input"
+:class="computedClasses"
+>
 		<label
-			v-if="label"
-			:for="name"
-			class="k-input__label"
-		>
+v-if="label"
+:for="name"
+class="k-input__label"
+>
 			<span>{{ label }}</span>
 			<span
-				v-if="isRequired"
-				class="text-red-700"
-			> * </span>
+v-if="isRequired"
+class="text-red-700"
+> * </span>
 		</label>
 		<div
-			class="k-input__input-wrapper"
-			:class="computedInputWrapperClasses"
-		>
+class="k-input__input-wrapper"
+:class="computedInputWrapperClasses"
+>
 			<slot name="k-input-prepend" />
 			<input
 				:class="computedInputClasses"
@@ -297,9 +301,9 @@ const computedPlaceholder = computed(() => {
 				@keyup.enter="(e) => updateValue(e, true)"
 			>
 			<slot
-				v-if="!isError && !isLoading"
-				name="k-input-append"
-			/>
+v-if="!isError && !isLoading"
+name="k-input-append"
+/>
 			<div class="k-input__icon">
 				<VueFeather
 					v-if="(isError || !isValid) && !isLoading"
@@ -309,9 +313,9 @@ const computedPlaceholder = computed(() => {
 					aria-hidden="true"
 				/>
 				<div
-					v-if="isLoading"
-					class="loading__spinner"
-				>
+v-if="isLoading"
+class="loading__spinner"
+>
 					<span class="loading__text">Loading...</span>
 				</div>
 			</div>

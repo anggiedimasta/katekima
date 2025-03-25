@@ -13,7 +13,7 @@ export default {
 	],
 	safelist: [
 		{
-			pattern: /(bg|border|text)-(k|gray|red|yellow)/
+			pattern: /(bg|border|text)-(k|gray|red|yellow|green)/
 		},
 		{
 			pattern: /grid-cols-/

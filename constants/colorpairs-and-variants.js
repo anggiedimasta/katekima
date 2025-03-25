@@ -19,6 +19,10 @@ export const buttonColorPairs = {
 		bgColorClass: 'bg-gray-100',
 		textColorClass: 'text-black'
 	},
+	'green-light': {
+		bgColorClass: 'bg-green-200',
+		textColorClass: 'text-green-700'
+	},
 	'red-light': {
 		bgColorClass: 'bg-red-200',
 		textColorClass: 'text-red-700'

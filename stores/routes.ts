@@ -1,27 +1,4 @@
-const MODULES: Module[] = [
-	{
-		name: 'Store',
-		icon: 'shopping-bag',
-		routes: [
-			{
-				name: 'Products',
-				href: '/store/products',
-				description: 'Products page with table'
-			}
-		]
-	},
-	{
-		name: 'Berry',
-		icon: 'sun',
-		routes: [
-			{
-				name: 'Berries',
-				href: '/berry/berries',
-				description: 'Berries page with table'
-			}
-		]
-	}
-]
+import { MODULES } from '@/constants/modules'
 
 export const useRouteStore = defineStore('routeStore', {
 	state: (): RouteState => ({
@@ -36,15 +13,17 @@ export const useRouteStore = defineStore('routeStore', {
 					m.name.toLowerCase() === state.activeModuleName.toLowerCase()
 			)
 		},
+		activeModuleIndex(state): Module {
+			return state.modules.findIndex(
+				(m: Module) =>
+					m.name.toLowerCase() === state.activeModuleName.toLowerCase()
+			)
+		},
 		activeModuleRoutes(): Route[] {
 			return this.activeModule ? this.activeModule.routes : []
 		},
 		activeRoute(state): Route {
-			const activeModuleIndex = state.modules.findIndex(
-				(m: Module) =>
-					m.name.toLowerCase() === state.activeModuleName.toLowerCase()
-			)
-			return state.modules[activeModuleIndex].routes.find(
+			return state.modules[this.activeModuleIndex].routes.find(
 				(r: Route) => r.href === state.activePath
 			)
 		}

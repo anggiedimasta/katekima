@@ -49,9 +49,9 @@ function updateValue(value) {
 	>
 		<template #k-input-prepend>
 			<VueFeather
-				size="1rem"
-				type="search"
-			/>
+size="1rem"
+type="search"
+/>
 		</template>
 	</KInput>
 </template>

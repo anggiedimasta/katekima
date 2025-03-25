@@ -3,14 +3,14 @@ export default defineNuxtRouteMiddleware((to) => {
 		return navigateTo('/store/products')
 	} else if (to.path === '/store') {
 		return navigateTo('/store/products')
-	} else if (to.path === '/berry') {
-		return navigateTo('/berry/berries')
+	} else if (to.path === '/poke') {
+		return navigateTo('/poke/berries')
 	}
 
 	if (to.path.startsWith('/store')) {
 		useRouteStore().setActiveModule('Store')
-	} else if (to.path.startsWith('/berry')) {
-		useRouteStore().setActiveModule('Berry')
+	} else if (to.path.startsWith('/poke')) {
+		useRouteStore().setActiveModule('Poke')
 	}
 
 	useRouteStore().setActivePath(to.path)

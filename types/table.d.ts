@@ -2,6 +2,7 @@ declare global {
 	interface TableColumn {
 		align?: left | center | right
 		headerAlign?: left | center | right
+		isAction?: boolean
 		isBodyHtml?: boolean
 		isHeaderHtml?: boolean
 		isSortable?: boolean
@@ -18,6 +19,14 @@ declare global {
 		searchBy: string[]
 		sortBy: string | null
 		sortType: string | null
+	}
+
+	interface TableAction {
+		action: string
+		icon?: string
+		params?: string[]
+		text?: string
+		variant?: string
 	}
 }
 

@@ -1,11 +1,17 @@
 export const useApiUrls = () => {
 	const config = useRuntimeConfig()
-	const apiBaseUrl = config.public.apiBaseUrl
+	const pokeApiBaseUrl = config.public.pokeApiBaseUrl
+	const storeApiBaseUrl = config.public.storeApiBaseUrl
 
 	return {
-		post: {
-			commentList: (id: number): string => `${apiBaseUrl}/posts/${id}/comments`,
-			list: `${apiBaseUrl}/posts`
+		poke: {
+			berries: `${pokeApiBaseUrl}/berry`
+		},
+		store: {
+			product: (id: string) => `${storeApiBaseUrl}/products/${id}`,
+			productAdd: `${storeApiBaseUrl}/products`,
+			productEdit: (id: string) => `${storeApiBaseUrl}/products/${id}`,
+			products: `${storeApiBaseUrl}/products`
 		}
 	}
 }

@@ -7,6 +7,11 @@ defineComponent({
 })
 
 const props = defineProps({
+	actions: {
+		default: () => [],
+		required: false,
+		type: Array
+	},
 	columns: {
 		default: () => {
 			return [
@@ -62,10 +67,10 @@ const props = defineProps({
 			return {
 				currentPage: 1,
 				perPage: 10,
-				search: null,
+				search: '',
 				searchBy: [],
-				sortBy: null,
-				sortType: null
+				sortBy: '',
+				sortType: ''
 			}
 		},
 		required: true,
@@ -126,22 +131,15 @@ const props = defineProps({
 		}
 	}
 })
-const emits = defineEmits(['get-data'])
 
-let localParams = reactive(props.params)
-watch(
-	() => props.params,
-	(params) => {
-		localParams = Object.assign(localParams, params)
-	}
-)
+const emits = defineEmits(['get-data', 'on-dropdown-click'])
+const localParams = reactive(props.params)
 
 const isParamChanged = computed(() => {
 	if (props.params.currentPage !== 1) return true
-	if (props.params.search !== null && props.params.search !== '') return true
-	if (props.params.sortBy !== null && props.params.sortBy !== '') return true
-	if (props.params.sortType !== null && props.params.sortType !== '')
-		return true
+	if (props.params.search !== '') return true
+	if (props.params.sortBy !== '') return true
+	if (props.params.sortType !== '') return true
 	return false
 })
 
@@ -149,22 +147,31 @@ function changeCurrentPage(page) {
 	localParams.currentPage = page
 	emits('get-data', localParams)
 }
+function changePerPage(perPage) {
+	localParams.perPage = perPage
+	emits('get-data', localParams)
+}
 function refresh() {
 	emits('get-data', localParams)
 }
 function reset() {
 	localParams.currentPage = 1
-	localParams.perPage = props.params.perPage ?? 10
-	localParams.search = null
-	localParams.sortBy = null
-	localParams.sortType = null
+	localParams.perPage = 10
+	localParams.search = ''
+	localParams.sortBy = ''
+	localParams.sortType = ''
 	emits('get-data', localParams)
 }
 function search(searchText) {
 	localParams.currentPage = 1
 	localParams.search = searchText
-
 	emits('get-data', localParams)
+}
+function onDropdownClick(event, index) {
+	emits('on-dropdown-click', {
+		...event,
+		index
+	})
 }
 
 const sortedByLabel = computed(() => {
@@ -179,8 +186,8 @@ function sort({ isSortable, key }) {
 			if (localParams.sortType === 'ascending') {
 				localParams.sortType = 'descending'
 			} else if (localParams.sortType === 'descending') {
-				localParams.sortBy = null
-				localParams.sortType = null
+				localParams.sortBy = ''
+				localParams.sortType = ''
 			} else if (!localParams.sortType) {
 				localParams.sortType = 'ascending'
 			}
@@ -206,8 +213,8 @@ const filteredRows = computed(() => {
 			rows = rows.filter((row) => {
 				return localParams.searchBy.some((key) => {
 					return (
+						row[key] &&
 						row[key]
-						&& row[key]
 							.toString()
 							.toLowerCase()
 							.includes(localParams.search.toLowerCase())
@@ -252,16 +259,14 @@ const computedTotalPage = computed(() => {
 <template>
 	<div class="k-table">
 		<div
-			v-if="isShowingInfo"
-			class="k-table__info"
-		>
-			<h1 class="info__title">
-				{{ computedTotalRows }} Data
-			</h1>
+v-if="isShowingInfo"
+class="k-table__info"
+>
+			<h1 class="info__title">{{ computedTotalRows }} Data</h1>
 			<div
-				v-if="localParams.sortType"
-				class="info__sort"
-			>
+v-if="localParams.sortType"
+class="info__sort"
+>
 				<KBadge
 					:class="`sort__icon ${localParams.sortType ? `sort__icon--${localParams.sortType}` : ''}`"
 					icon-size="0.75rem"
@@ -269,14 +274,15 @@ const computedTotalPage = computed(() => {
 					rounded
 					variant="k"
 				/>
-				<span class="sort__text">Sorted by {{ sortedByLabel }} {{ localParams.sortType }}</span>
+				<span class="sort__text">
+					Sorted by {{ sortedByLabel }} {{ localParams.sortType }}</span>
 			</div>
 		</div>
 		<div class="k-table__table">
 			<div
-				v-if="isShowingHeader"
-				class="k-table__header"
-			>
+v-if="isShowingHeader"
+class="k-table__header"
+>
 				<div class="header__left">
 					<div
 						v-if="isUsingSearch && searchPosition === 'left'"
@@ -305,9 +311,9 @@ const computedTotalPage = computed(() => {
 					>
 						<KTableSearchInput
 							:is-loading="isFetching"
+							:is-update-on-enter="false"
 							:placeholder="searchPlaceholder"
 							:search-text="localParams.search"
-							is-update-on-enter
 							@update:model-value="search"
 						/>
 						<KButton
@@ -329,9 +335,9 @@ const computedTotalPage = computed(() => {
 					<thead class="table__head">
 						<tr>
 							<th
-								v-if="isNumbered"
-								style="width: 50px"
-							>
+v-if="isNumbered"
+style="width: 50px"
+>
 								<div class="head__wrapper head__wrapper--center">
 									<span>{{ numberHeaderText }}</span>
 								</div>
@@ -365,8 +371,8 @@ const computedTotalPage = computed(() => {
 									}}</span>
 									<span
 										v-if="
-											hoveredHeader === column.key
-												&& (column.isSortable === undefined || column.isSortable)
+											hoveredHeader === column.key &&
+											(column.isSortable === undefined || column.isSortable)
 										"
 										class="head__sort"
 									>
@@ -392,8 +398,8 @@ const computedTotalPage = computed(() => {
 									</span>
 									<span
 										v-else-if="
-											localParams.sortBy === column.key
-												&& (column.isSortable === undefined || column.isSortable)
+											localParams.sortBy === column.key &&
+											(column.isSortable === undefined || column.isSortable)
 										"
 										class="head__sort"
 									>
@@ -413,16 +419,16 @@ const computedTotalPage = computed(() => {
 					</thead>
 					<tbody
 						v-if="
-							isFetching
-								|| !computedRows
-								|| (!isFetching && !computedRows.length)
+							isFetching ||
+							!computedRows ||
+							(!isFetching && !computedRows.length)
 						"
 						class="table__body"
 					>
 						<tr
-							v-if="isFetching"
-							class="body__loading"
-						>
+v-if="isFetching"
+class="body__loading"
+>
 							<td colspan="12">
 								<div class="loading__spinner">
 									<span class="spinner__text">Loading...</span>
@@ -430,9 +436,9 @@ const computedTotalPage = computed(() => {
 							</td>
 						</tr>
 						<tr
-							v-if="!isFetching && !computedRows.length"
-							class="body__empty"
-						>
+v-if="!isFetching && !computedRows.length"
+class="body__empty"
+>
 							<td colspan="12">
 								<div class="empty__wrapper">
 									<img
@@ -440,9 +446,7 @@ const computedTotalPage = computed(() => {
 										src="@/assets/images/no-data.png"
 										alt="No Data Available"
 									>
-									<p class="empty__text">
-										No Data Available
-									</p>
+									<p class="empty__text">No Data Available</p>
 								</div>
 							</td>
 						</tr>
@@ -452,18 +456,18 @@ const computedTotalPage = computed(() => {
 						class="table__body"
 					>
 						<tr
-							v-for="(row, rowIndex) in computedRows"
-							:key="rowIndex"
-						>
+v-for="(row, rowIndex) in computedRows"
+:key="rowIndex"
+>
 							<td
-								v-if="isNumbered"
-								class="text-center"
-							>
+v-if="isNumbered"
+class="text-center"
+>
 								<span>
 									{{
-										(localParams.currentPage - 1) * localParams.perPage
-											+ rowIndex
-											+ 1
+										(localParams.currentPage - 1) * localParams.perPage +
+										rowIndex +
+										1
 									}}
 								</span>
 							</td>
@@ -472,7 +476,14 @@ const computedTotalPage = computed(() => {
 								:key="`${rowIndex}-${columnIndex}`"
 								:class="`text-${column.valueAlign || column.align} break-words`"
 							>
-								<span v-if="column.isBodyHtml">
+								<span v-if="column.isAction && actions && actions.length > 0">
+									<KDropdown
+										:row="row"
+										:options="actions"
+										@action="(e) => onDropdownClick(e, rowIndex)"
+									/>
+								</span>
+								<span v-else-if="column.isBodyHtml">
 									<slot
 										:row-index="rowIndex"
 										:row="row"
@@ -500,6 +511,7 @@ const computedTotalPage = computed(() => {
 					:total-page="computedTotalPage"
 					:total-rows="computedTotalRows"
 					@change-current-page="changeCurrentPage($event)"
+					@change-per-page="changePerPage($event)"
 					@refresh="refresh"
 				/>
 			</div>
@@ -703,6 +715,7 @@ const computedTotalPage = computed(() => {
 
 				.sort {
 					&__icon {
+						@apply text-white;
 						@apply mr-2;
 
 						&--ascending,

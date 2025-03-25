@@ -1,8 +1,15 @@
 declare global {
 	interface Route {
-		description: string
 		href: string
 		name: string
+	}
+
+	interface RouteWithMeta extends Route {
+		meta: {
+			title: string
+			description: string
+			moduleName: string
+		}
 	}
 
 	interface Module {

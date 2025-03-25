@@ -1,7 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 	modules: ['@nuxt/eslint', '@nuxtjs/tailwindcss', '@pinia/nuxt'],
-	devtools: { enabled: true },
+	devtools: {
+		enabled: true,
+		timeline: {
+			enabled: true
+		}
+	},
 	app: {
 		head: {
 			htmlAttrs: {
@@ -18,8 +23,7 @@ export default defineNuxtConfig({
 		// Keys within public are also exposed client-side
 		public: {
 			appName: 'Katekima',
-			apiBaseUrl: process.env.BERRY_API_BASE_URL,
-			berryApiBaseUrl: process.env.BERRY_API_BASE_URL,
+			pokeApiBaseUrl: process.env.POKE_API_BASE_URL,
 			storeApiBaseUrl: process.env.STORE_API_BASE_URL
 		}
 	},
