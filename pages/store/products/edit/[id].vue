@@ -58,29 +58,29 @@ getProduct()
 	<div>
 		<div class="mb-6">
 			<h1 class="font-medium leading-6 text-k-tertiary text-2xl mb-1">
-				{{ route.meta.title }}
+				{{ $t(route.meta.title as string) }}
 			</h1>
 			<h5 class="leading-6 text-gray-400 text-base">
-				{{ route.meta.description }}
+				{{ $t(route.meta.description as string) }}
 			</h5>
 		</div>
 		<div class="p-4 sm:p-6 lg:p-8 bg-white rounded-lg shadow">
 			<div class="gap-4 grid grid-cols-2 mt-4 text-sm">
 				<div class="flex flex-col gap-4">
 					<KInput
-v-model="productEdit.id"
-:is-loading="isLoading"
-label="ID"
-/>
+						v-model="productEdit.id"
+						:is-loading="isLoading"
+						:label="$t('ID')"
+					/>
 					<KInput
 						v-model="productEdit.title"
 						:is-loading="isLoading"
-						label="Title"
+						:label="$t('Title')"
 					/>
 					<KInput
 						v-model="productEdit.price"
 						:is-loading="isLoading"
-						label="Price"
+						:label="$t('Price')"
 						type="number"
 					/>
 				</div>
@@ -88,29 +88,29 @@ label="ID"
 					<KInput
 						v-model="productEdit.description"
 						:is-loading="isLoading"
-						label="Description"
+						:label="$t('Description')"
 					/>
 					<KInput
 						v-model="productEdit.category"
 						:is-loading="isLoading"
-						label="Category"
+						:label="$t('Category')"
 					/>
 					<KInput
 						v-model="productEdit.image"
 						:is-loading="isLoading"
-						label="Image URL"
+						:label="$t('Image URL')"
 					/>
 				</div>
 				<div class="flex gap-2 justify-end mt-4 self-end col-span-2">
 					<KButton
 						:loading="isLoading"
-						text="Cancel"
+						:text="$t('Cancel')"
 						variant="red-light"
 						@click="cancelEditProduct"
 					/>
 					<KButton
 						:loading="isLoading"
-						text="Save"
+						:text="$t('Save')"
 						variant="green-light"
 						@click="editProduct"
 					/>

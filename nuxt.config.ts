@@ -1,6 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-	modules: ['@nuxt/eslint', '@nuxtjs/tailwindcss', '@pinia/nuxt'],
+	modules: [
+		'@nuxt/eslint',
+		'@nuxtjs/i18n',
+		'@nuxtjs/tailwindcss',
+		'@pinia/nuxt'
+	],
 	devtools: {
 		enabled: true,
 		timeline: {
@@ -37,5 +42,8 @@ export default defineNuxtConfig({
 				semi: false
 			}
 		}
+	},
+	i18n: {
+		vueI18n: './i18n.config.ts' // if you are using custom path, default
 	}
 })

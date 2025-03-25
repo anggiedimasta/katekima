@@ -34,10 +34,10 @@ getProduct()
 	<div>
 		<div class="mb-6">
 			<h1 class="font-medium leading-6 text-k-tertiary text-2xl mb-1">
-				{{ route.meta.title }}
+				{{ $t(route.meta.title as string) }}
 			</h1>
 			<h5 class="leading-6 text-gray-400 text-base">
-				{{ route.meta.description }}
+				{{ $t(route.meta.description as string) }}
 			</h5>
 		</div>
 		<div
@@ -128,7 +128,7 @@ getProduct()
 								href="#"
 								class="ml-3 text-sm font-medium text-k-tertiary hover:text-k-secondary"
 							>
-								{{ storeStore.product.rating.count }} reviews
+								{{ storeStore.product.rating.count }} {{ $t('reviews') }}
 							</a>
 						</div>
 					</div>

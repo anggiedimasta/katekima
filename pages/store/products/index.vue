@@ -108,10 +108,10 @@ getProducts()
 	<div>
 		<div class="mb-6">
 			<h1 class="font-medium leading-6 text-k-tertiary text-2xl mb-1">
-				{{ route.meta.title }}
+				{{ $t(route.meta.title as string) }}
 			</h1>
 			<h5 class="leading-6 text-gray-400 text-base">
-				{{ route.meta.description }}
+				{{ $t(route.meta.description as string) }}
 			</h5>
 		</div>
 		<KTable
@@ -134,7 +134,7 @@ getProducts()
 					<KButton
 						:is-loading="isLoading"
 						icon="plus"
-						text="Add Product"
+						:text="$t('Add Product')"
 						variant="green-light"
 						@click="addProduct"
 					/>
@@ -192,11 +192,13 @@ class="relative z-50"
 											as="h3"
 											class="text-base font-semibold text-gray-900"
 										>
-											Delete product
+											{{ $t('Delete product') }}
 										</DialogTitle>
 										<div class="mt-2">
 											<p class="text-sm text-gray-500">
-												Are you sure you want to delete this product?
+												{{
+													$t('Are you sure you want to delete this product?')
+												}}
 											</p>
 										</div>
 									</div>
@@ -207,7 +209,7 @@ class="relative z-50"
 										class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 sm:ml-3 sm:w-auto"
 										@click="deleteProduct"
 									>
-										Delete
+										{{ $t('Delete') }}
 									</button>
 									<button
 										ref="cancelButtonRef"
@@ -215,7 +217,7 @@ class="relative z-50"
 										class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto"
 										@click="productDelete = null"
 									>
-										Cancel
+										{{ $t('Cancel') }}
 									</button>
 								</div>
 							</DialogPanel>

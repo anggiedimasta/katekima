@@ -262,7 +262,7 @@ const computedTotalPage = computed(() => {
 v-if="isShowingInfo"
 class="k-table__info"
 >
-			<h1 class="info__title">{{ computedTotalRows }} Data</h1>
+			<h1 class="info__title">{{ computedTotalRows }} {{ $t('Data') }}</h1>
 			<div
 v-if="localParams.sortType"
 class="info__sort"
@@ -275,7 +275,8 @@ class="info__sort"
 					variant="k"
 				/>
 				<span class="sort__text">
-					Sorted by {{ sortedByLabel }} {{ localParams.sortType }}</span>
+					{{ $t('Sorted by') }} {{ $t(sortedByLabel) }}
+					{{ $t(localParams.sortType) }}</span>
 			</div>
 		</div>
 		<div class="k-table__table">
@@ -290,7 +291,7 @@ class="k-table__header"
 					>
 						<KTableSearchInput
 							:is-loading="isFetching"
-							:placeholder="searchPlaceholder"
+							:placeholder="$t(searchPlaceholder)"
 							:search-text="localParams.search"
 							@update:model-value="search"
 						/>
@@ -312,7 +313,7 @@ class="k-table__header"
 						<KTableSearchInput
 							:is-loading="isFetching"
 							:is-update-on-enter="false"
-							:placeholder="searchPlaceholder"
+							:placeholder="$t(searchPlaceholder)"
 							:search-text="localParams.search"
 							@update:model-value="search"
 						/>
@@ -367,7 +368,7 @@ style="width: 50px"
 										<slot :name="`header-column-${column.key}`" />
 									</span>
 									<span v-else-if="!column.isHeaderHtml">{{
-										column.label
+										$t(column.label)
 									}}</span>
 									<span
 										v-if="

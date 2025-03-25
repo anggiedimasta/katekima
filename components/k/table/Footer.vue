@@ -96,7 +96,9 @@ function changePerPage(value) {
 <template>
 	<div class="k-table-footer">
 		<div class="flex items-center gap-2">
-			<div class="flex items-center text-gray-500 text-xs">Per Page</div>
+			<div class="flex items-center text-gray-500 text-xs">
+				{{ $t('Per Page') }}
+			</div>
 			<Listbox
 :value="perPage"
 as="div"
@@ -182,7 +184,7 @@ type="chevron-left"
 					</li>
 					<li class="pagination__pages">
 						<div class="pages__text">
-							Page
+							{{ $t('Page') }}
 							<KInput
 								v-model="pageNow"
 								:max="totalPage"
@@ -196,7 +198,7 @@ type="chevron-left"
 								type="number"
 								@update:model-value="toPage"
 							/>
-							of
+							{{ $t('of') }}
 							<span class="pages__total">{{ totalPage }}</span>
 						</div>
 					</li>
@@ -239,8 +241,11 @@ class="k-table-footer__divider"
 			/>
 			<div class="k-table-footer__divider" />
 			<p class="k-table-footer__page-info">
-				Displaying {{ pageInfoFrom }} to {{ pageInfoTo }} of
-				{{ totalRows }} Data
+				{{ $t('Displaying') }} {{ pageInfoFrom }} {{ $t('to') }}
+				{{ pageInfoTo }}
+				{{ $t('of') }}
+				{{ totalRows }}
+				{{ $t('Data') }}
 			</p>
 		</div>
 	</div>

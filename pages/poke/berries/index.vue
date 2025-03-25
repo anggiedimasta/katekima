@@ -96,10 +96,10 @@ getBerries()
 	<div>
 		<div class="mb-6">
 			<h1 class="font-medium leading-6 text-k-tertiary text-2xl mb-1">
-				{{ route.meta.title }}
+				{{ $t(route.meta.title as string) }}
 			</h1>
 			<h5 class="leading-6 text-gray-400 text-base">
-				{{ route.meta.description }}
+				{{ $t(route.meta.description as string) }}
 			</h5>
 		</div>
 		<KTable
@@ -165,7 +165,7 @@ class="relative z-50"
 									<dl class="divide-y divide-gray-100">
 										<div class="p-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
 											<dt class="text-sm/6 font-medium text-gray-900">
-												Firmness
+												{{ $t('Firmness') }}
 											</dt>
 											<dd
 												class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0"
@@ -175,7 +175,7 @@ class="relative z-50"
 										</div>
 										<div class="p-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
 											<dt class="text-sm/6 font-medium text-gray-900">
-												Flavors
+												{{ $t('Flavors') }}
 											</dt>
 											<dd
 												class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0"
@@ -191,7 +191,7 @@ class="relative z-50"
 										</div>
 										<div class="p-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
 											<dt class="text-sm/6 font-medium text-gray-900">
-												Growth time
+												{{ $t('Growth time') }}
 											</dt>
 											<dd
 												class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0"
@@ -200,7 +200,9 @@ class="relative z-50"
 											</dd>
 										</div>
 										<div class="p-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-											<dt class="text-sm/6 font-medium text-gray-900">Item</dt>
+											<dt class="text-sm/6 font-medium text-gray-900">
+												{{ $t('Item') }}
+											</dt>
 											<dd
 												class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0"
 											>
@@ -209,7 +211,7 @@ class="relative z-50"
 										</div>
 										<div class="p-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
 											<dt class="text-sm/6 font-medium text-gray-900">
-												Max Harvest
+												{{ $t('Max Harvest') }}
 											</dt>
 											<dd
 												class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0"
@@ -219,7 +221,7 @@ class="relative z-50"
 										</div>
 										<div class="p-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
 											<dt class="text-sm/6 font-medium text-gray-900">
-												Natural Gift Power
+												{{ $t('Natural Gift Power') }}
 											</dt>
 											<dd
 												class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0"
@@ -229,7 +231,7 @@ class="relative z-50"
 										</div>
 										<div class="p-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
 											<dt class="text-sm/6 font-medium text-gray-900">
-												Natural Gift Type
+												{{ $t('Natural Gift Type') }}
 											</dt>
 											<dd
 												class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0"
@@ -238,7 +240,9 @@ class="relative z-50"
 											</dd>
 										</div>
 										<div class="p-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-											<dt class="text-sm/6 font-medium text-gray-900">Size</dt>
+											<dt class="text-sm/6 font-medium text-gray-900">
+												{{ $t('Size') }}
+											</dt>
 											<dd
 												class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0"
 											>
@@ -247,7 +251,7 @@ class="relative z-50"
 										</div>
 										<div class="p-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
 											<dt class="text-sm/6 font-medium text-gray-900">
-												Smoothness
+												{{ $t('Smoothness') }}
 											</dt>
 											<dd
 												class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0"
@@ -257,7 +261,7 @@ class="relative z-50"
 										</div>
 										<div class="p-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
 											<dt class="text-sm/6 font-medium text-gray-900">
-												Soil Dryness
+												{{ $t('Soil Dryness') }}
 											</dt>
 											<dd
 												class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0"

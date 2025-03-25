@@ -98,7 +98,7 @@ class="relative inline-block text-left"
 :class="option.textClass"
 class="menu__text"
 >
-							{{ option.text }}
+							{{ $t(option.text) }}
 						</p>
 					</span>
 					<a
@@ -126,7 +126,7 @@ class="menu__text"
 :class="option.textClass"
 class="menu__text"
 >
-							{{ option.text }}
+							{{ $t(option.text) }}
 						</p>
 					</a>
 				</MenuItem>
