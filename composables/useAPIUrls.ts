@@ -11,6 +11,7 @@ export const useApiUrls = () => {
 		store: {
 			product: (id: string) => `${storeApiBaseUrl}/products/${id}`,
 			productAdd: `${storeApiBaseUrl}/products`,
+			productDelete: (id: string) => `${storeApiBaseUrl}/products/${id}`,
 			productEdit: (id: string) => `${storeApiBaseUrl}/products/${id}`,
 			products: `${storeApiBaseUrl}/products`
 		}

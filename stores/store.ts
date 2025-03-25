@@ -92,6 +92,18 @@ export const useStoreStore = defineStore('storeStore', {
 				throw error
 			}
 		},
+		async deleteProduct(product: Product) {
+			const { $toast } = useNuxtApp()
+			try {
+				await $fetch(useApiUrls().store.productDelete(String(product.id)), {
+					method: 'DELETE'
+				})
+				$toast.success('Product deleted successfully')
+			} catch (error: unknown) {
+				$toast.error('Failed to delete product')
+				throw error
+			}
+		},
 		async editProduct(product: BaseProduct) {
 			const { $toast } = useNuxtApp()
 			try {
